@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  cake-app:
+    build:
+      args:
+        user: cake
+        uid: 1000
+      context: ./
+      dockerfile: ./docker/devcontainer/Dockerfile
+    # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
+    command: php bin/cake.php server -H 0.0.0.0
+    env_file: .env.production
+    container_name: cake_app
+    restart: unless-stopped
+    working_dir: /var/www/
+    ports:
+      - "8765:8765"
+    depends_on:
+      - cake-db
+      - cake-redis
+    volumes:
+      - ./:/var/www
+
+  cake-db:
+    image: postgres:12.4
+    container_name: cake_pg
+    restart: unless-stopped
+    volumes:
+      - cake_data:/var/lib/postgresql/data
+    env_file: .env.production
+
+  cake-redis:
+    image: "redis:alpine"
+    container_name: cake_redis
+
+  # if you need graphic acces to application database
+  # adminer:
+  #   image: adminer
+  #   networks:
+  #     - frontend
+  #   restart: unless-stopped
+
+volumes:
+  cake_data:
