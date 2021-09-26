@@ -25,7 +25,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => env('SECURITY_SALT', '__SALT__'),
+        'salt' => env('SECURITY_SALT', null),
     ],
 
     /*
@@ -93,4 +93,61 @@ return [
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
+
+    /*
+   * Configure the cache adapters.
+   */
+    'Cache' => [
+        'default' => [
+            'className' => \Cake\Cache\Engine\RedisEngine::class,
+            'host' => env('REDIS_HOST', null),
+            'port' => env('REDIS_PORT', null),
+            # 'path' => CACHE,
+            # 'url' => env('CACHE_DEFAULT_URL', null),
+        ],
+
+        /*
+         * Configure the cache used for general framework caching.
+         * Translation cache files are stored with this configuration.
+         * Duration will be set to '+2 minutes' in bootstrap.php when debug = true
+         * If you set 'className' => 'Null' core cache will be disabled.
+         */
+        '_cake_core_' => [
+            'className' => \Cake\Cache\Engine\RedisEngine::class,
+            'prefix' => 'myapp_cake_core_',
+            'host' => env('REDIS_HOST', null),
+            'port' => env('REDIS_PORT', null),
+            'serialize' => true,
+            'duration' => '+1 years',
+        ],
+
+        /*
+         * Configure the cache for model and datasource caches. This cache
+         * configuration is used to store schema descriptions, and table listings
+         * in connections.
+         * Duration will be set to '+2 minutes' in bootstrap.php when debug = true
+         */
+        '_cake_model_' => [
+            'className' => \Cake\Cache\Engine\RedisEngine::class,
+            'prefix' => 'myapp_cake_model_',
+            'host' => env('REDIS_HOST', null),
+            'port' => env('REDIS_PORT', null),
+            'serialize' => true,
+            'duration' => '+1 years',
+        ],
+
+        /*
+         * Configure the cache for routes. The cached routes collection is built the
+         * first time the routes are processed through `config/routes.php`.
+         * Duration will be set to '+2 seconds' in bootstrap.php when debug = true
+         */
+        '_cake_routes_' => [
+            'className' => \Cake\Cache\Engine\RedisEngine::class,
+            'prefix' => 'myapp_cake_routes_',
+            'host' => env('REDIS_HOST', null),
+            'port' => env('REDIS_PORT', null),
+            'serialize' => true,
+            'duration' => '+1 years',
+        ],
+    ]
 ];

@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY . /app
 
+## uncomment --no-scripts if you want to remove composer postinstallation scripts
 RUN composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --optimize-autoloader #--no-scripts
 
 FROM ghcr.io/maymeow/webapp-base/webapp-base:latest

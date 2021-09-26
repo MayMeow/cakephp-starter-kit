@@ -7,6 +7,7 @@ use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\RouteBuilder;
+use Cake\Utility\Security;
 
 /**
  * Plugin for Tools
