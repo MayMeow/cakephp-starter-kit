@@ -73,6 +73,7 @@ stan:
   stage: test
   before_script:
     - composer install
+    - composer require --dev phpstan/phpstan
   script:
     - composer run stan
   tags:
