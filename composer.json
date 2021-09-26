@@ -46,7 +46,7 @@
         ],
         "cs-check": "phpcs --colors -p  src/ tests/",
         "cs-fix": "phpcbf --colors -p src/ tests/",
-        "stan": "phpstan analyse",
+        "stan": "phpstan analyse --error-format gitlab > phpstan.json",
         "test": "phpunit --colors=always"
     },
     "prefer-stable": true,
