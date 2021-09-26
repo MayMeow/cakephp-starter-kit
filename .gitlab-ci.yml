@@ -46,6 +46,11 @@ docker-build:
 test:
   image: ghcr.io/maymeow/php-ci-cd/php-ci-cd:7.4.16-cs-1
   stage: test
+  variables:
+    REDIS_HOST: "redis"
+    REDIS_PORT: "6379"
+  services:
+    - redis:alpine
   before_script:
     - composer install
   script:
