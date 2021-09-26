@@ -1,0 +1,80 @@
+version: "3.7"
+
+networks:
+  frontend:
+    external: true
+  cakenotify_backend:
+    internal: true
+
+services:
+  cakenotify-app:
+    # build:
+    #   args:
+    #     user: cakenotify
+    #     uid: 1000
+    #   context: ./
+    #   dockerfile: ./docker/app/Dockerfile
+    image: ghcr.io/maymeow/cake-notify/cake-notify:latest
+    env_file: .env.production
+    container_name: cakenotify_app
+    restart: unless-stopped
+    working_dir: /var/www/
+    networks:
+      - frontend
+      - cakenotify_backend
+    depends_on:
+      - cakenotify-db
+      - cakenotify-redis
+    volumes:
+      - /var/www
+
+  cakenotify-db:
+    image: postgres:12.4
+    container_name: cakenotify_pg
+    networks:
+      - cakenotify_backend
+    restart: unless-stopped
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file: .env.production
+
+  cakenotify-nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    container_name: cakenotify_nginx
+    networks:
+      - cakenotify_backend
+      - frontend
+    volumes_from:
+      - cakenotify-app
+    # ports:
+    #   - "8088:80"
+    restart: unless-stopped
+    depends_on:
+      - cakenotify-app
+      - cakenotify-db
+      - cakenotify-redis
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cakenotify.rule=Host(`cakenotify.$CLOUD_DOMAIN`)"
+      - "traefik.http.routers.cakenotify.entrypoints=web,websecure"
+      - "traefik.http.routers.cakenotify.tls.certresolver=le"
+      - "traefik.http.routers.cakenotify.tls.options=mytls@file"
+      - "traefik.http.services.cakenotify.loadbalancer.server.port=80"
+      - "traefik.http.routers.cakenotify.service=cakenotify"
+      - "traefik.docker.network=frontend"
+
+
+  cakenotify-redis:
+    image: "redis:alpine"
+    container_name: cakenotify_redis
+    networks:
+      - cakenotify_backend
+
+  # if you need graphic acces to application database
+  # adminer:
+  #   image: adminer
+  #   networks:
+  #     - frontend
+  #   restart: unless-stopped
