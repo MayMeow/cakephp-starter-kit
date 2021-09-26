@@ -77,7 +77,7 @@ If you want to see code on my own instance, project have set visibility to publi
 
 ## Support
 
-In case you wan to support development you can use funding button in right panel of this project. Or if you want to help develop this project write me email (address you can find on my profile) and I create account for you on my GitLab instance.'
+In case you wan to support development you can use funding button in right panel of this project. Or if you want to help develop this project write me email (address you can find on my profile) and I create account for you on my GitLab instance.
 
 ## License
 
