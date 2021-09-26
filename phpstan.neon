@@ -4,5 +4,6 @@ parameters:
     treatPhpDocTypesAsCertain: false
     paths:
         - src
+        - plugins
     excludes_analyse:
         - src/Console/Installer.php
