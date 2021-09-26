@@ -79,3 +79,7 @@ stan:
     - composer run stan
   tags:
     - hetzner
+  artifacts:
+    when: always
+    reports:
+      codequality: phpstan.json
