@@ -57,3 +57,13 @@ test:
     - composer run test
   tags:
     - hetzner
+
+cs-check:
+  image: ghcr.io/maymeow/php-ci-cd/php-ci-cd:7.4.16-cs-1
+  stage: test
+  before_script:
+    - composer install
+  script:
+    - composer run cs-check
+  tags:
+    - hetzner
