@@ -71,9 +71,8 @@ cs-check:
 stan:
   image: ghcr.io/maymeow/php-ci-cd/php-ci-cd:7.4.16-cs-1
   stage: test
-  variables:
-    PHP_MEMORY_LIMIT: "1024M"
   before_script:
+    - echo 'memory_limit=1024M' >> /usr/local/etc/php/conf.d/docker-php-memory-limit.ini
     - composer install
     - composer require --dev phpstan/phpstan
   script:
