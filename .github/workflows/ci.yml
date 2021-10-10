@@ -14,7 +14,7 @@ jobs:
       - name: Composer run action PHPC_CS
         uses: MayMeowHQ/composer-run-action@v1
         with:
-          composer_script: 'codesniffer'
+          composer_script: 'cs-check'
 
   stan:
     runs-on: ubuntu-latest
