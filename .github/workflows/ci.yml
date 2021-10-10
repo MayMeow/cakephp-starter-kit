@@ -2,81 +2,41 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
-      - '4.next'
+    branches: [ main, development/* ]
   pull_request:
-    branches:
-      - '*'
+    branches: [ main ]
 
 jobs:
-  testsuite:
-    runs-on: ubuntu-18.04
-    strategy:
-      fail-fast: false
-      matrix:
-        php-version: ['7.2', '7.4', '8.0']
-    name: PHP ${{ matrix.php-version }}
-
+  test:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:alpine
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Composer run action PHPC_CS
+        uses: MayMeowHQ/composer-run-action@v3
+        with:
+          composer_script: 'test'
+        env:
+          REDIS_HOST: 'redis'
+          REDIS_PORT: '6379'
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-version }}
-        extensions: mbstring, intl, pdo_sqlite, pdo_mysql
-        coverage: none
-
-    - name: Composer install
-      run: |
-        if [[ ${{ matrix.php-version }} == '8.0' ]]; then
-          composer install --ignore-platform-reqs
-        else
-          composer install
-        fi
-        composer run-script post-install-cmd --no-interaction
-
-    - name: Run PHPUnit
-      run: |
-          vendor/bin/phpunit
-
-  coding-standard:
-    name: Coding Standard
-    runs-on: ubuntu-18.04
-
+  codesniffer:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Composer run action PHPC_CS
+        uses: MayMeowHQ/composer-run-action@v3
+        with:
+          composer_script: 'cs-check'
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.2'
-        extensions: mbstring, intl
-        coverage: none
-
-    - name: Composer install
-      run: composer install
-
-    - name: Run PHP CodeSniffer
-      run: composer cs-check
-
-  static-analysis:
-    name: Static Analysis
-    runs-on: ubuntu-18.04
-
+  stan:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.2'
-        extensions: mbstring, intl
-        coverage: none
-
-    - name: Composer install
-      run: composer require --dev phpstan/phpstan:^0.12
-
-    - name: Run phpstan
-      run: vendor/bin/phpstan.phar analyse
+      - uses: actions/checkout@v2
+      - name: Composer run action PHPStan
+        uses: MayMeowHQ/composer-run-action@v3
+        with:
+          composer_script: 'stan'
+          memory_limit: '2048M'
