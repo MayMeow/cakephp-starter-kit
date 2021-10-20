@@ -23,9 +23,7 @@ class GenerateSecurityKeyCommand extends Command
      */
     public function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
-        $parser = parent::buildOptionParser($parser);
-
-        return $parser;
+        return parent::buildOptionParser($parser);
     }
 
     /**
