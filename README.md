@@ -14,7 +14,7 @@ Services contained for dev environment in `docker-compose.dev.yml`
 |Service|Ports|Description|
 |----|----|----|
 |Cakephp App|8765|Your application|
-|Adminer|8000|Database management tool|
+|Adminer|8080|Database management tool|
 |Postgres|5432 not exposed|Database server|
 |Redis|6379 not exposed|Cache server|
 |Minio| 9000 (Api), 9001 (Console)|S3 compatible storage server|
