@@ -10,7 +10,7 @@ services:
       dockerfile: ./docker/devcontainer/Dockerfile
     # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
     command: php bin/cake.php server -H 0.0.0.0
-    env_file: .env.production
+    env_file: .env.dev
     container_name: cake_app
     restart: unless-stopped
     working_dir: /var/www/
@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
     volumes:
       - cake_data:/var/lib/postgresql/data
-    env_file: .env.production
+    env_file: .env.dev
 
   cake-redis:
     image: "redis:alpine"
@@ -49,7 +49,7 @@ services:
     restart: unless-stopped
     volumes:
       - minio_data:/data
-    env_file: .env.production
+    env_file: .env.dev
     command: server /data --console-address :9001
     ports:
       - "9000:9000"
