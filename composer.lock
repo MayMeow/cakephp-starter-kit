@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f34fc97d1e992607c1ecd32bb2768c0",
+    "content-hash": "1c3d81bf9aa030eb8cb589ddf4c03857",
     "packages": [
         {
             "name": "cakephp/cakephp",
@@ -663,6 +663,56 @@
                 }
             ],
             "time": "2021-07-09T08:23:52+00:00"
+        },
+        {
+            "name": "maymeow/cakephp-service-layer",
+            "version": "2.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MayMeow/cakephp-service-layer.git",
+                "reference": "f4015295e8d05e9cdae77aa9f0037ab91a7cc5a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MayMeow/cakephp-service-layer/zipball/f4015295e8d05e9cdae77aa9f0037ab91a7cc5a7",
+                "reference": "f4015295e8d05e9cdae77aa9f0037ab91a7cc5a7",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^4.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "cakephp/cakephp-codesniffer": "^3.0",
+                "dereuromark/cakephp-ide-helper": "^1.0",
+                "phpstan/phpstan": "^0.12.14",
+                "phpunit/phpunit": "^8.5.0"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Burzum\\CakeServiceLayer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Krämer",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Mark Scherer",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "Service layer and domain / business model implementation for CakePHP",
+            "support": {
+                "source": "https://github.com/MayMeow/cakephp-service-layer/tree/2.1.3"
+            },
+            "time": "2021-08-31T10:39:54+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

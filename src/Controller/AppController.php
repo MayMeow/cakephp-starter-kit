@@ -16,6 +16,7 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use Burzum\CakeServiceLayer\Service\ServiceAwareTrait;
 use Cake\Controller\Controller;
 
 /**
@@ -28,6 +29,8 @@ use Cake\Controller\Controller;
  */
 class AppController extends Controller
 {
+    use ServiceAwareTrait;
+
     /**
      * Initialization hook method.
      *
