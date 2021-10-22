@@ -35,11 +35,27 @@ services:
     container_name: cake_redis
 
   # if you need graphic acces to application database
-  # adminer:
-  #   image: adminer
-  #   networks:
-  #     - frontend
-  #   restart: unless-stopped
+  adminer:
+    image: adminer
+    networks:
+      - frontend
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+
+  minio:
+    image: minio/minio:RELEASE.2021-08-05T22-01-19Z
+    restart: unless-stopped
+    volumes:
+      - minio_data:/data
+    env_file: .env.production
+    command: server /data --console-address :9001
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
 
 volumes:
   cake_data:
+  minio_data:

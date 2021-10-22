@@ -7,6 +7,18 @@ Starter kit contains:
 - Predefined Development docker environment (CkePHP, PostgreSQL, Redis)
 - Ready to production deployment docker configuration (CakePHP, NGiNX, PostgreSQL, Redis), you can also enable traefik as well.
 
+## Your dev environment
+
+Services contained for dev environment in `docker-compose.dev.yml`
+
+|Service|Ports|Description|
+|----|----|----|
+|Cakephp App|8765|Your application|
+|Adminer|8000|Database management tool|
+|Postgres|5432 not exposed|Database server|
+|Redis|6379 not exposed|Cache server|
+|Minio| 9000 (Api), 9001 (Console)|S3 compatible storage server|
+
 ## Installation
 
 There are more different ways how to use this project as template for your new application. You can clone this project
