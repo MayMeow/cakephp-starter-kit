@@ -42,7 +42,7 @@ or with Docker
 mdkir app_name
 cd app_name
 docker run --rm --volume $(pwd):/app ghcr.io/maymeow/php-ci-cd/php-ci-cd:7.4.16-cs-1 sh -c "composer create-project --prefer-dist maymeow/cakephp-starter-kit:dev-main /app"
-sudo chown -R $USER:$GID /path/to/app_mame
+sudo chown -R $USER:$GID .
 ```
 
 ## Configuration
