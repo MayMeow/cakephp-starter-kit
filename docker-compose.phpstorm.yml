@@ -1,13 +1,24 @@
 version: "3"
 
 services:
-  dev-container:
+  php7:
     build:
       args:
         user: vscode
         uid: 1000
       context: ./
       dockerfile: docker/devcontainer/Dockerfile
+    working_dir: /app
+    volumes:
+      - "./:/app"
+
+  php8:
+    build:
+      args:
+        user: vscode
+        uid: 1000
+      context: ./
+      dockerfile: docker/devcontainer/php8.Dockerfile
     working_dir: /app
     volumes:
       - "./:/app"

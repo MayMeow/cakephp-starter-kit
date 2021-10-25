@@ -1,0 +1,63 @@
+version: "3.7"
+
+services:
+  cake-app:
+    build:
+      args:
+        user: cake
+        uid: 1000
+      context: ./
+      dockerfile: ./docker/devcontainer/php8.Dockerfile
+    # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
+    command: php bin/cake.php server -H 0.0.0.0
+    env_file: .env.dev
+    container_name: cake_app
+    restart: unless-stopped
+    working_dir: /var/www/
+    ports:
+      - "8765:8765"
+    depends_on:
+      - cake-db
+      - cake-redis
+    volumes:
+      - ./:/var/www
+
+  cake-db:
+    image: postgres:12.4
+    container_name: cake_pg
+    restart: unless-stopped
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - cake_data:/var/lib/postgresql/data
+    env_file: .env.dev
+
+  cake-redis:
+    image: "redis:alpine"
+    container_name: cake_redis
+
+  # if you need graphic acces to application database
+  adminer:
+    image: adminer
+    container_name: cake_adminer
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+
+  minio:
+    image: minio/minio:RELEASE.2021-08-05T22-01-19Z
+    container_name: cake_minio
+    restart: unless-stopped
+    volumes:
+      - minio_data:/data
+    env_file: .env.dev
+    command: server /data --console-address :9001
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+
+volumes:
+  cake_data:
+  minio_data:
