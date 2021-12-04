@@ -32,7 +32,7 @@ rm -rf .git # then initialize new git repository with git init and set your remo
 or with composer
 
 ```bash
-composer create-project --prefer-dist maymeow/cakephp-starter-kit:dev-master app_name
+composer create-project --prefer-dist maymeow/cakephp-starter-kit:dev-main app_name
 cd app_name
 ```
 
