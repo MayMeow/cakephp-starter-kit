@@ -1,4 +1,4 @@
-FROM ghcr.io/maymeow/php-ci-cd/php-ci-cd:7.4.16-cs-1 AS build-env
+FROM ghcr.io/maymeow/php-ci-cd/php-ci-cd:8.0.2-cs-git AS build-env
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ COPY . /app
 ## uncomment --no-scripts if you want to remove composer postinstallation scripts
 RUN composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --optimize-autoloader #--no-scripts
 
-FROM ghcr.io/maymeow/webapp-base/webapp-base:latest
+FROM ghcr.io/maymeow/webapp-base/webapp-base:8.0.2
 
 COPY --from=build-env /app /var/www
 
