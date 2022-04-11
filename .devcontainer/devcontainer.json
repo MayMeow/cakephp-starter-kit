@@ -1,7 +1,7 @@
 {
 	//"build": { "dockerfile": "Dockerfile" },
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "app.dev",
+	"service": "app-dev",
 	"extensions": [
 		"praveencrony.total-lines",
 		"ikappas.phpcs",
