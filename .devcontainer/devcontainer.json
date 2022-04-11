@@ -1,0 +1,21 @@
+{
+	//"build": { "dockerfile": "Dockerfile" },
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app.dev",
+	"extensions": [
+		"praveencrony.total-lines",
+		"ikappas.phpcs",
+		"bmewburn.vscode-intelephense-client",
+		"christian-kohler.path-intellisense",
+		"oderwat.indent-rainbow",
+		"eamodio.gitlens",
+		"mhutchie.git-graph",
+		"gitlab.gitlab-workflow",
+		"lacroixdavid1.vscode-format-context-menu",
+		"hookyqr.beautify",
+		"taniarascia.new-moon-vscode"
+	],
+	"forwardPorts": [8765,8080],
+	"workspaceFolder": "/var/www",
+	"remoteUser": "cake"
+}
