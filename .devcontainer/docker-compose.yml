@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: Dockerfile
     # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
-    command: php bin/cake.php server -H 0.0.0.0
+    command: bash -c "composer install && php bin/cake.php server -H 0.0.0.0"
     env_file: ../.env.dev
     restart: unless-stopped
     working_dir: /var/www/
