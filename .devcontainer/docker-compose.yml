@@ -16,13 +16,13 @@ services:
     ports:
       - "8765:8765"
     depends_on:
-      - postgres
+      - pg
       - redis
       - minio
     volumes:
       - ..:/var/www
 
-  postgres:
+  pg:
     image: postgres:12.4
     restart: unless-stopped
     # ports:
