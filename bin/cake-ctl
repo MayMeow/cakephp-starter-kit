@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker compose -f docker-compose.dev.yml run --rm cake-app php bin/cake.php $@
