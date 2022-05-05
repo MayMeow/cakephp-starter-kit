@@ -14,7 +14,7 @@ services:
     #     uid: 1000
     #   context: ./
     #   dockerfile: ./docker/app/Dockerfile
-    image: ghcr.io/maymeow/cake-notify/cake-notify:latest
+    # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
     env_file: .env.production
     container_name: cakenotify_app
     restart: unless-stopped
@@ -64,7 +64,6 @@ services:
       - "traefik.http.services.cakenotify.loadbalancer.server.port=80"
       - "traefik.http.routers.cakenotify.service=cakenotify"
       - "traefik.docker.network=frontend"
-
 
   cakenotify-redis:
     image: "redis:alpine"
