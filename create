@@ -6,7 +6,12 @@ die () {
 }
 
 [ "$#" -eq 1 ] || die "1 argument required, $# provided"
-echo $1 | grep -E -q '^[A-Za-z]+$' || die "Application name is required, $1 provided"
+echo $1 | grep -E -q '^[A-Za-z_.-]+$' || die "Application name is required, allowed characrs are A-Z a-z _ . -, $1 provided"
+
+if [ -d "$1" ]; then
+    # Take action if $DIR exists. #
+    die "Folder $1 alread exists."
+fi
 
 mkdir $1
 cd $1

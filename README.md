@@ -93,12 +93,6 @@ docker exec -it cake_redis redis-cl
 
 If you found an issue or you want to provide feedback or you have an idea for new features. Use [Issue tab](https://github.com/MayMeow/cakephp-starter-kit/issues) on github project page.
 
-## Development
-
-I running development of this project on my own gitlab instace because is easier for me to setup and maintain CI pipelines. I mirroring to this repository only protected pranches for now only `main` branch. Code is tested and only after successfull pipeline is merged to tha main branch and thenis mirrored to this github repository.
-
-If you want to see code on my own instance, project have set visibility to public so you can see source code, pipleine logs and more. Source code is here [maymeow/cakephp-starter-kit](https://git.moew.cloud/maymeow/cakephp-starter-kit)
-
 ## Support
 
 In case you wan to support development you can use funding button in right panel of this project. Or if you want to help develop this project write me email (address you can find on my profile) and I create account for you on my GitLab instance.
