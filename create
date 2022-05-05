@@ -1,0 +1,14 @@
+#!/bin/bash
+
+die () {
+    echo >&2 "$@"
+    exit 1
+}
+
+[ "$#" -eq 1 ] || die "1 argument required, $# provided"
+echo $1 | grep -E -q '^[A-Za-z]+$' || die "Application name is required, $1 provided"
+
+mkdir $1
+cd $1
+docker run --rm --volume $(pwd):/app ghcr.io/maymeow/php-ci-cd/php-ci-cd:8.0.2-cs-git sh -c "composer create-project --prefer-dist maymeow/cakephp-starter-kit:dev-main /app"
+sudo chown -R $USER:$GID .
