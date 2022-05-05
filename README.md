@@ -2,6 +2,7 @@
 
 Starter kit contains:
 
+- Docker (Linux) or Docker Desktop (Mac or Windows)
 - CakePHP 4.0 application skeleton
 - Bootstrap 5.0 based theme plugin [WIP]
 - Predefined Development docker environment (CkePHP, PostgreSQL, Redis)
@@ -21,7 +22,18 @@ Services contained for dev environment in `docker-compose.dev.yml`
 
 ## Installation
 
-There are more different ways how to use this project as template for your new application. You can clone this project
+There are more different ways how to use this project as template for your new application. You can use script **recomended** to 
+download template for you
+
+```bash
+curl https://raw.githubusercontent.com/MayMeow/cakephp-starter-kit/main/create -o create-app
+chmod +x create-app
+sudo mv create-app /usr/local/bin/
+```
+
+then you can use `create-app <your-app-name>` to create your application.
+
+ or You can clone this project
 
 ```bash
 git clone --depth=1 --branch=main https://github.com/MayMeow/cakephp-starter-kit.git app_name
