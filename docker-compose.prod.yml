@@ -3,73 +3,73 @@ version: "3.7"
 networks:
   frontend:
     external: true
-  cakenotify_backend:
+  cake_backend:
     internal: true
 
 services:
-  cakenotify-app:
-    # build:
+  app:
+    build:
     #   args:
-    #     user: cakenotify
+    #     user: cake
     #     uid: 1000
-    #   context: ./
-    #   dockerfile: ./docker/app/Dockerfile
+      context: ./
+      dockerfile: ./docker/app/Dockerfile
     # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
     env_file: .env.production
-    container_name: cakenotify_app
+    container_name: app
     restart: unless-stopped
     working_dir: /var/www/
     networks:
       - frontend
-      - cakenotify_backend
+      - cake_backend
     depends_on:
-      - cakenotify-db
-      - cakenotify-redis
+      - db
+      - redis
     volumes:
       - /var/www
 
-  cakenotify-db:
+  db:
     image: postgres:12.4
-    container_name: cakenotify_pg
+    container_name: db
     networks:
-      - cakenotify_backend
+      - cake_backend
     restart: unless-stopped
     volumes:
       - ./data/db:/var/lib/postgresql/data
     env_file: .env.production
 
-  cakenotify-nginx:
+  nginx:
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
-    container_name: cakenotify_nginx
+    container_name: nginx
     networks:
-      - cakenotify_backend
+      - cake_backend
       - frontend
     volumes_from:
-      - cakenotify-app
+      - app
     # ports:
     #   - "8088:80"
     restart: unless-stopped
     depends_on:
-      - cakenotify-app
-      - cakenotify-db
-      - cakenotify-redis
+      - app
+      - db
+      - redis
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.cakenotify.rule=Host(`cakenotify.$CLOUD_DOMAIN`)"
-      - "traefik.http.routers.cakenotify.entrypoints=web,websecure"
-      - "traefik.http.routers.cakenotify.tls.certresolver=le"
-      - "traefik.http.routers.cakenotify.tls.options=mytls@file"
-      - "traefik.http.services.cakenotify.loadbalancer.server.port=80"
-      - "traefik.http.routers.cakenotify.service=cakenotify"
+      - "traefik.http.routers.cake.rule=Host(`cake.domain.sk`)"
+      - "traefik.http.routers.cake.entrypoints=web,websecure"
+      - "traefik.http.routers.cake.tls.certresolver=le"
+      - "traefik.http.routers.cake.tls.options=mytls@file"
+      - "traefik.http.services.cake.loadbalancer.server.port=80"
+      - "traefik.http.routers.cake.service=cake"
       - "traefik.docker.network=frontend"
 
-  cakenotify-redis:
+  redis:
     image: "redis:alpine"
-    container_name: cakenotify_redis
+    container_name: redis
     networks:
-      - cakenotify_backend
+      - cake_backend
 
   # if you need graphic acces to application database
   # adminer:

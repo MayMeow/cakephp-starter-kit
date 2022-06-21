@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Composer run action PHPC_CS
-        uses: MayMeowHQ/composer-run-action@v5
+        uses: MayMeowHQ/composer-run-action@v7
         with:
           composer_script: 'test'
         env:
@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Composer run action PHPC_CS
-        uses: MayMeowHQ/composer-run-action@v5
+        uses: MayMeowHQ/composer-run-action@v7
         with:
           composer_script: 'cs-check'
 
@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Composer run action PHPStan
-        uses: MayMeowHQ/composer-run-action@v5
+        uses: MayMeowHQ/composer-run-action@v7
         with:
           composer_script: 'stan'
           memory_limit: '2048M'

@@ -37,14 +37,14 @@ use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Database\TypeFactory;
 use Cake\Database\Type\StringType;
 use Cake\Datasource\ConnectionManager;
-use Cake\Error\ConsoleErrorHandler;
-use Cake\Error\ErrorHandler;
 use Cake\Http\ServerRequest;
 use Cake\Log\Log;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
+use Cake\Error\ErrorTrap;
+use Cake\Error\ExceptionTrap;
 
 /*
  * See https://github.com/josegonzalez/php-dotenv for API details.
@@ -124,9 +124,13 @@ ini_set('intl.default_locale', Configure::read('App.defaultLocale'));
  */
 $isCli = PHP_SAPI === 'cli';
 if ($isCli) {
-    (new ConsoleErrorHandler(Configure::read('Error')))->register();
+    //(new ConsoleErrorHandler(Configure::read('Error')))->register();
+    (new ErrorTrap(Configure::read('Error')))->register();
+    (new ExceptionTrap(Configure::read('Error')))->register();
 } else {
-    (new ErrorHandler(Configure::read('Error')))->register();
+    // (new ErrorHandler(Configure::read('Error')))->register();
+    (new ErrorTrap(Configure::read('Error')))->register();
+    (new ExceptionTrap(Configure::read('Error')))->register();
 }
 
 /*
