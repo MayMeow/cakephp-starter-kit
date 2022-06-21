@@ -181,7 +181,10 @@ return [
      */
     'Error' => [
         'errorLevel' => E_ALL,
-        'exceptionRenderer' => ExceptionRenderer::class,
+        /**
+         * ! remove the `Error.exceptionRenderer` config key to have CakePHP choose one of the default exception renderers
+         */
+        // 'exceptionRenderer' => ExceptionRenderer::class,
         'skipLog' => [],
         'log' => true,
         'trace' => true,
