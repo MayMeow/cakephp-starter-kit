@@ -3,7 +3,7 @@
 Starter kit contains:
 
 - Docker (Linux) or Docker Desktop (Mac or Windows)
-- CakePHP 4.0 application skeleton
+- CakePHP 4.4.1 application skeleton
 - Bootstrap 5.0 based theme plugin [WIP]
 - Predefined Development docker environment (CkePHP, PostgreSQL, Redis)
 - Ready to production deployment docker configuration (CakePHP, NGiNX, PostgreSQL, Redis), you can also enable traefik as well.
