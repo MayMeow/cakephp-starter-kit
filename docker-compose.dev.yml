@@ -7,13 +7,13 @@ services:
         user: cake
         uid: 1000
       context: ./
-      dockerfile: ./docker/devcontainer/Dockerfile
+      dockerfile: ./vendor/maymeow/sail/sdk/8.0/Dockerfile
     # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
     command: bash -c "composer install && php bin/cake.php server -H 0.0.0.0"
     env_file: .env.dev
-    container_name: cake_app
-    restart: unless-stopped
     working_dir: /var/www/
+    networks:
+      - cake
     ports:
       - "8765:8765"
     depends_on:
@@ -24,8 +24,8 @@ services:
 
   cake-db:
     image: postgres:12.4
-    container_name: cake_pg
-    restart: unless-stopped
+    networks:
+      - cake
     # ports:
     #   - "5432:5432"
     volumes:
@@ -34,20 +34,23 @@ services:
 
   cake-redis:
     image: "redis:alpine"
-    container_name: cake_redis
+    networks:
+      - cake
+    volumes:
+      - cake_redis:/data
 
   # if you need graphic acces to application database
   adminer:
     image: adminer
-    container_name: cake_adminer
+    networks:
+      - cake
     ports:
       - "8080:8080"
-    restart: unless-stopped
 
   minio:
     image: minio/minio:RELEASE.2021-08-05T22-01-19Z
-    container_name: cake_minio
-    restart: unless-stopped
+    networks:
+      - cake
     volumes:
       - minio_data:/data
     env_file: .env.dev
@@ -56,6 +59,14 @@ services:
       - "9000:9000"
       - "9001:9001"
 
+networks:
+  cake:
+    driver: bridge
+
 volumes:
   cake_data:
+    driver: local
   minio_data:
+    driver: local
+  cake_redis:
+    driver: local
