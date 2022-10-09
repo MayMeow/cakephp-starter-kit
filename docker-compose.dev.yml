@@ -16,7 +16,7 @@ services:
       - redis
 
   composer:
-    image: ghcr.io/maymeow/php-ci-cd/php-ci-cd:8.1.6-cs-git-psalm
+    image: ghcr.io/maymeow/php/sdk:8.1.6
     user: "1000:1000"
     working_dir: /var/www/
     command:  bash -c "composer install"
@@ -27,7 +27,7 @@ services:
       - ./:/var/www
 
   app:
-    image: ghcr.io/maymeow/webapp-base/webapp-base:8.1.6
+    image: ghcr.io/maymeow/php/runtime:8.1.6
     user: "1000:1000"
     env_file: .env
     restart: unless-stopped

@@ -1,4 +1,4 @@
-FROM ghcr.io/maymeow/php-ci-cd/php-ci-cd:8.1.6-cs-git-psalm
+FROM ghcr.io/maymeow/php/sdk:8.1.6
 
 # arguments in docker-compose file
 ARG user=vscode
