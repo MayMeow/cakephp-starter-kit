@@ -1,59 +1,67 @@
 version: "3.7"
 
 services:
-  cake-app:
+  nginx:
     build:
-      args:
-        user: cake
-        uid: 1000
-      context: ./
-      dockerfile: ./vendor/maymeow/sail/sdk/8.0/Dockerfile
-    # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
-    command: bash -c "composer install && php bin/cake.php server -H 0.0.0.0"
-    env_file: .env.dev
-    working_dir: /var/www/
-    networks:
-      - cake
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    volumes_from:
+      - app
     ports:
-      - "8765:8765"
+      - "8080:80"
+    restart: unless-stopped
     depends_on:
-      - cake-db
-      - cake-redis
+      - app
+      - db
+      - redis
+
+  composer:
+    image: ghcr.io/maymeow/php-ci-cd/php-ci-cd:8.1.6-cs-git-psalm
+    user: "1000:1000"
+    working_dir: /var/www/
+    command:  bash -c "composer install"
+    depends_on:
+      - db
+      - redis
     volumes:
       - ./:/var/www
 
-  cake-db:
+  app:
+    image: ghcr.io/maymeow/webapp-base/webapp-base:8.1.6
+    user: "1000:1000"
+    env_file: .env
+    restart: unless-stopped
+    working_dir: /var/www/
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./:/var/www
+
+  db:
     image: postgres:12.4
-    networks:
-      - cake
-    # ports:
-    #   - "5432:5432"
+    ports:
+      - "5432:5432"
     volumes:
       - cake_data:/var/lib/postgresql/data
-    env_file: .env.dev
+    env_file: .env
 
-  cake-redis:
+  redis:
     image: "redis:alpine"
-    networks:
-      - cake
     volumes:
       - cake_redis:/data
 
   # if you need graphic acces to application database
   adminer:
     image: adminer
-    networks:
-      - cake
     ports:
-      - "8080:8080"
+      - "8081:8080"
 
   minio:
     image: minio/minio:RELEASE.2021-08-05T22-01-19Z
-    networks:
-      - cake
     volumes:
       - minio_data:/data
-    env_file: .env.dev
+    env_file: .env
     command: server /data --console-address :9001
     ports:
       - "9000:9000"

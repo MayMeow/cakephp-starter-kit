@@ -15,7 +15,7 @@ services:
       context: ./
       dockerfile: ./docker/app/Dockerfile
     # image: ghcr.io/maymeow/cake-notify/cake-notify:latest
-    env_file: .env.production
+    env_file: .env
     container_name: app
     restart: unless-stopped
     working_dir: /var/www/
@@ -36,7 +36,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    env_file: .env.production
+    env_file: .env
 
   nginx:
     build:
@@ -77,3 +77,17 @@ services:
   #   networks:
   #     - frontend
   #   restart: unless-stopped
+
+  # If you need/want use minio S3 storage uncomment following
+  # minio:
+  #   image: minio/minio:RELEASE.2021-08-05T22-01-19Z
+  #   volumes:
+  #     - minio_data:/data
+  #   env_file: .env
+  # networks:
+  #     - cake_backend
+  #   command: server /data --console-address :9001
+  # Optional: uncomment if you want to expose ports
+  #   ports:
+  #     - "9000:9000"
+  #     - "9001:9001"
