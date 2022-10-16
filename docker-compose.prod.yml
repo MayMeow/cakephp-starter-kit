@@ -27,6 +27,8 @@ services:
       - redis
     volumes:
       - /var/www
+      # For sqlite uncomment following line
+      # - ./app.sq3:/app.sq3
 
   db:
     image: postgres:12.4
