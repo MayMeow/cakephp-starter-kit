@@ -1,0 +1,4 @@
+[submodule "page_src/themes/simple-hugo"]
+	path = page_src/themes/simple-hugo
+	url = https://github.com/MayMeow/simple-hugo.git
+	branch = main

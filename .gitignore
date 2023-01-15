@@ -42,3 +42,8 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
+
+# page
+page_src/public/*
+page_src/resources/*
+page_src/.hugo_build.lock
